@@ -1,0 +1,21 @@
+@model Post
+@{
+    ViewData["Baslik"] = Model.Baslik;
+}
+
+<section>
+    <div class="container">
+        <article class="yazi-detay">
+            <img class="kapak" src="~/uploads/@(Model.KapakResim ?? "varsayilan.jpg")" alt="@Model.Baslik">
+            <h1>@Model.Baslik</h1>
+            <span class="tarih">@YardimciServisler.TarihFormatla(Model.OlusturulmaTarihi)</span>
+            <div class="icerik">
+                @* Güvenlik için içerik Razor tarafından otomatik escape edilir, satır sonları <br>'a çevrilir *@
+                @foreach (var satir in Model.Icerik.Split('\n'))
+                {
+                    <p>@satir</p>
+                }
+            </div>
+        </article>
+    </div>
+</section>

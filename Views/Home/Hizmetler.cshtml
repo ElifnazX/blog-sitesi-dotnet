@@ -1,0 +1,34 @@
+@{
+    ViewData["Baslik"] = "Hizmetler";
+
+    // Not: Aşağıdaki listeyi kendi hizmetlerinize göre düzenleyebilirsiniz.
+    var hizmetler = new[]
+    {
+        new { Ikon = "🗣️", Baslik = "Konuşma Sesi Bozuklukları", Aciklama = "Artikülasyon ve fonolojik seslerin değerlendirilmesi ve terapisi." },
+        new { Ikon = "👶", Baslik = "Çocuklarda Dil Gecikmesi", Aciklama = "Erken dil ve konuşma gelişimi değerlendirmesi, aile yönlendirmesi." },
+        new { Ikon = "🧩", Baslik = "Kekemelik Terapisi", Aciklama = "Akıcı konuşma becerilerini destekleyici bireysel terapi programları." },
+        new { Ikon = "📖", Baslik = "Okuma-Yazma Güçlükleri", Aciklama = "Dil temelli okuma ve yazma güçlüklerine yönelik destek." },
+        new { Ikon = "🧠", Baslik = "Yutma Güçlükleri (Disfaji)", Aciklama = "Yutma fonksiyonlarının değerlendirilmesi ve rehabilitasyonu." },
+        new { Ikon = "💬", Baslik = "Yetişkin İletişim Terapisi", Aciklama = "Nörolojik kaynaklı iletişim güçlüklerinde bireysel destek." },
+    };
+}
+
+<section>
+    <div class="container">
+        <div class="section-baslik">
+            <h2>Hizmetlerim</h2>
+            <p>İhtiyacınıza uygun terapi yaklaşımını birlikte belirliyoruz</p>
+        </div>
+
+        <div class="hizmet-grid">
+            @foreach (var h in hizmetler)
+            {
+                <div class="hizmet-kart">
+                    <div class="ikon">@h.Ikon</div>
+                    <h3>@h.Baslik</h3>
+                    <p>@h.Aciklama</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

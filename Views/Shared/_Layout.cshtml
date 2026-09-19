@@ -1,0 +1,62 @@
+@using Microsoft.Extensions.Options
+@using BlogSite.Models
+@inject IOptions<SiteAyarlariOptions> SiteAyarlari
+@{
+    var ayar = SiteAyarlari.Value;
+    var sayfaBaslik = ViewData["Baslik"] as string;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@(sayfaBaslik != null ? sayfaBaslik + " | " : "")@ayar.SiteAdi</title>
+<meta name="description" content="@ayar.SiteAciklama - @ayar.SiteAdi">
+<link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo">
+            @ayar.SiteAdi
+            <span>@ayar.SiteAciklama</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="/">Ana Sayfa</a></li>
+                <li><a href="/hakkinda">Hakkında</a></li>
+                <li><a href="/hizmetler">Hizmetler</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/sorular">S.S.S.</a></li>
+                <li><a href="/iletisim">İletişim</a></li>
+                @if (Context.User.Identity?.IsAuthenticated == true)
+                {
+                    <li>
+                        <a href="@(Context.User.IsInRole("sahip") ? "/admin" : "/hesap/soru-sor")" style="color:var(--renk-turuncu-koyu);">
+                            @(Context.User.IsInRole("sahip") ? "Panelim" : "Hesabım")
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li><a href="/hesap/giris" style="color:var(--renk-turuncu-koyu);">Giriş Yap</a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</header>
+
+@RenderBody()
+
+<footer>
+    <div class="container">
+        <p>&copy; @DateTime.Now.Year @ayar.SiteAdi — Tüm hakları saklıdır.</p>
+        <p style="margin-top:6px;">
+            <a href="@ayar.InstagramUrl" target="_blank" rel="noopener">Instagram'da takip edin</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

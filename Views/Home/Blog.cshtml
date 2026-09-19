@@ -1,0 +1,35 @@
+@model List<Post>
+@{
+    ViewData["Baslik"] = "Blog";
+}
+
+<section>
+    <div class="container">
+        <div class="section-baslik">
+            <h2>Blog</h2>
+            <p>Dil ve konuşma gelişimi üzerine yazılar</p>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <p style="text-align:center; color:var(--renk-metin-acik);">Henüz yayınlanmış bir yazı bulunmuyor. Yakında burada olacak!</p>
+        }
+        else
+        {
+            <div class="blog-grid">
+                @foreach (var yazi in Model)
+                {
+                    <a href="/blog/@yazi.Slug" class="blog-kart">
+                        <img class="kapak" src="~/uploads/@(yazi.KapakResim ?? "varsayilan.jpg")" alt="@yazi.Baslik">
+                        <div class="icerik">
+                            <span class="tarih">@YardimciServisler.TarihFormatla(yazi.OlusturulmaTarihi)</span>
+                            <h3>@yazi.Baslik</h3>
+                            <p>@yazi.Ozet</p>
+                            <span class="devamini-oku">Devamını Oku →</span>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>

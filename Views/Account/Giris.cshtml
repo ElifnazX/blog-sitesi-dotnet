@@ -1,0 +1,32 @@
+@model GirisViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Baslik"] = "Giriş Yap";
+}
+
+<div class="container" style="padding-top:80px;">
+    <div class="admin-panel">
+        <h2 style="margin-bottom:24px; text-align:center;">Giriş Yap</h2>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="uyari">@Html.ValidationSummary()</div>
+        }
+
+        <form asp-action="Giris" method="post">
+            <div class="form-grup">
+                <label>E-posta</label>
+                <input asp-for="Email" type="email" required autofocus>
+            </div>
+            <div class="form-grup">
+                <label>Şifre</label>
+                <input asp-for="Parola" type="password" required>
+            </div>
+            <button type="submit" class="btn" style="width:100%;">Giriş Yap</button>
+        </form>
+
+        <p style="margin-top:18px; text-align:center; color:var(--renk-metin-acik);">
+            Hesabın yok mu? <a href="/hesap/kayit" style="color:var(--renk-turuncu-koyu); font-weight:700;">Kayıt ol</a>
+        </p>
+    </div>
+</div>

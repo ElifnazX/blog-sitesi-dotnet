@@ -1,0 +1,30 @@
+@using Microsoft.Extensions.Options
+@inject IOptions<SiteAyarlariOptions> SiteAyarlari
+@{
+    ViewData["Baslik"] = "Hakkında";
+    var ayar = SiteAyarlari.Value;
+}
+
+<section>
+    <div class="container">
+        <div class="hakkinda-blok">
+            <div class="resim">
+                <img src="~/images/profil.jpg" alt="@ayar.SiteAdi">
+            </div>
+            <div class="metin">
+                <h2>Merhaba, Ben @ayar.SiteAdi</h2>
+                <p>
+                    Dil ve konuşma terapisi alanında lisans eğitimimin ardından, bu alanda
+                    <strong>yüksek lisans</strong> derecemi tamamladım. Çocuklarda ve yetişkinlerde
+                    görülen konuşma, dil ve iletişim güçlüklerine yönelik değerlendirme ve terapi
+                    süreçlerini yürütüyorum.
+                </p>
+                <p style="margin-top:16px;">
+                    Amacım, danışanlarımın ve ailelerinin iletişim becerilerini güçlendirerek
+                    günlük yaşamlarını kolaylaştırmak. Bu blogda, alanımla ilgili merak edilen
+                    konuları, güncel bilgileri ve pratik önerileri sizlerle paylaşıyorum.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

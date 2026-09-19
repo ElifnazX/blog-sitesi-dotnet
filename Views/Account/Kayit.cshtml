@@ -1,0 +1,43 @@
+@model KayitViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Baslik"] = "Kayıt Ol";
+}
+
+<div class="container" style="padding-top:60px;">
+    <div class="admin-panel">
+        <h2 style="margin-bottom:8px; text-align:center;">Hesap Oluştur</h2>
+        <p style="text-align:center; color:var(--renk-metin-acik); margin-bottom:24px;">
+            Sorularınızı sorabilmek için ücretsiz bir hesap oluşturun.
+        </p>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="uyari">@Html.ValidationSummary()</div>
+        }
+
+        <form asp-action="Kayit" method="post">
+            <div class="form-grup">
+                <label>Ad Soyad</label>
+                <input asp-for="AdSoyad" type="text" required>
+            </div>
+            <div class="form-grup">
+                <label>E-posta</label>
+                <input asp-for="Email" type="email" required>
+            </div>
+            <div class="form-grup">
+                <label>Şifre (en az 8 karakter)</label>
+                <input asp-for="Parola" type="password" required minlength="8">
+            </div>
+            <div class="form-grup">
+                <label>Sahip Kodu (yalnızca Ayşe Nur içindir, değilseniz boş bırakın)</label>
+                <input asp-for="SahipKodu" type="password" placeholder="İsteğe bağlı">
+            </div>
+            <button type="submit" class="btn" style="width:100%;">Hesap Oluştur</button>
+        </form>
+
+        <p style="margin-top:18px; text-align:center; color:var(--renk-metin-acik);">
+            Zaten hesabın var mı? <a href="/hesap/giris" style="color:var(--renk-turuncu-koyu); font-weight:700;">Giriş yap</a>
+        </p>
+    </div>
+</div>

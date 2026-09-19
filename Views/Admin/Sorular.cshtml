@@ -1,0 +1,54 @@
+@model List<Soru>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Baslik"] = "Sorular";
+}
+
+<header class="admin-header">
+    <div class="container">
+        <a href="/admin" style="font-weight:700;">← Panele Dön</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="admin-panel genis">
+        <h2 style="margin-bottom:24px;">Gelen Sorular</h2>
+
+        @if (!Model.Any())
+        {
+            <p style="color:var(--renk-metin-acik);">Henüz gelen bir soru yok.</p>
+        }
+        else
+        {
+            @foreach (var soru in Model)
+            {
+                <div style="border-bottom:1px solid #F1E7DA; padding:20px 0;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="durum-etiket @(soru.Durum == "cevaplandi" ? "yayinda" : "taslak")">
+                            @(soru.Durum == "cevaplandi" ? "Cevaplandı" : "Bekliyor")
+                        </span>
+                        <span style="color:var(--renk-metin-acik); font-size:0.85rem;">
+                            @soru.SoranKullanici?.AdSoyad — @YardimciServisler.TarihFormatla(soru.OlusturulmaTarihi)
+                        </span>
+                    </div>
+
+                    <p style="font-weight:700; margin-top:10px;">@soru.SoruMetni</p>
+
+                    @if (soru.Durum == "cevaplandi")
+                    {
+                        <p style="margin-top:10px; color:var(--renk-metin-acik);"><strong>Cevabınız:</strong> @soru.Cevap</p>
+                    }
+                    else
+                    {
+                        <form asp-action="SoruCevapla" asp-route-id="@soru.Id" method="post" style="margin-top:12px;">
+                            <div class="form-grup">
+                                <textarea name="cevap" required placeholder="Cevabınızı yazın..." style="min-height:100px;"></textarea>
+                            </div>
+                            <button type="submit" class="btn">Cevapla ve Yayınla</button>
+                        </form>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,55 @@
+@model YaziFormViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Baslik"] = "Yeni Yazı";
+}
+
+<header class="admin-header">
+    <div class="container">
+        <a href="/admin" style="font-weight:700;">← Panele Dön</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="admin-panel">
+        <h2 style="margin-bottom:24px;">Yeni Blog Yazısı</h2>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="uyari">@Html.ValidationSummary()</div>
+        }
+
+        <form asp-action="YaziEkle" method="post" enctype="multipart/form-data">
+
+            <div class="form-grup">
+                <label>Başlık</label>
+                <input asp-for="Baslik" type="text" required>
+            </div>
+
+            <div class="form-grup">
+                <label>Kısa Özet (blog listesinde görünür)</label>
+                <input asp-for="Ozet" type="text" maxlength="500">
+            </div>
+
+            <div class="form-grup">
+                <label>Kapak Resmi</label>
+                <input asp-for="KapakResimDosya" type="file" accept="image/jpeg,image/png,image/webp">
+            </div>
+
+            <div class="form-grup">
+                <label>İçerik</label>
+                <textarea asp-for="Icerik" required></textarea>
+            </div>
+
+            <div class="form-grup">
+                <label>Durum</label>
+                <select asp-for="Durum">
+                    <option value="taslak">Taslak (yayınlanmaz)</option>
+                    <option value="yayinda">Yayınla</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Kaydet</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+@using Microsoft.Extensions.Options
+@inject IOptions<SiteAyarlariOptions> SiteAyarlari
+@{
+    ViewData["Baslik"] = "İletişim";
+    var ayar = SiteAyarlari.Value;
+}
+
+<section>
+    <div class="container">
+        <div class="section-baslik">
+            <h2>İletişim</h2>
+            <p>Sorularınız ve randevu talepleriniz için ulaşabilirsiniz</p>
+        </div>
+
+        <div class="iletisim-blok">
+            <h2>Benimle Instagram Üzerinden İletişime Geçin</h2>
+            <p>Mesajlarınıza en hızlı buradan dönüş yapabiliyorum.</p>
+            <a href="@ayar.InstagramUrl" target="_blank" rel="noopener" class="instagram-link">
+                📷 Instagram'dan Yazın
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,58 @@
+@model List<Post>
+@using Microsoft.Extensions.Options
+@inject IOptions<SiteAyarlariOptions> SiteAyarlari
+@{
+    ViewData["Baslik"] = "Ana Sayfa";
+    var ayar = SiteAyarlari;
+}
+
+<section class="hero">
+    <div class="container">
+        <h1>Merhaba, Ben @ayar.Value.SiteAdi</h1>
+        <p>Dil ve konuşma terapisi alanında yüksek lisans eğitimimle, çocukların ve yetişkinlerin
+           iletişim becerilerini güçlendirmelerine destek oluyorum.</p>
+        <a href="/hizmetler" class="btn">Hizmetlerimi İncele</a>
+        <a href="/blog" class="btn btn-ikincil">Blog Yazılarım</a>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="section-baslik">
+            <h2>Son Blog Yazılarım</h2>
+            <p>Dil ve konuşma gelişimiyle ilgili merak edilenler</p>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <p style="text-align:center; color:var(--renk-metin-acik);">Henüz yayınlanmış bir yazı bulunmuyor.</p>
+        }
+        else
+        {
+            <div class="blog-grid">
+                @foreach (var yazi in Model)
+                {
+                    <a href="/blog/@yazi.Slug" class="blog-kart">
+                        <img class="kapak" src="~/uploads/@(yazi.KapakResim ?? "varsayilan.jpg")" alt="@yazi.Baslik">
+                        <div class="icerik">
+                            <span class="tarih">@YardimciServisler.TarihFormatla(yazi.OlusturulmaTarihi)</span>
+                            <h3>@yazi.Baslik</h3>
+                            <p>@yazi.Ozet</p>
+                            <span class="devamini-oku">Devamını Oku →</span>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="iletisim-blok">
+            <h2>Benimle İletişime Geçin</h2>
+            <p>Sorularınız için Instagram üzerinden ulaşabilirsiniz.</p>
+            <a href="@ayar.Value.InstagramUrl" target="_blank" rel="noopener" class="instagram-link">📷 Instagram'dan Yazın</a>
+        </div>
+    </div>
+</section>
